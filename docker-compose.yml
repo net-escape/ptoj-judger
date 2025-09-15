@@ -1,0 +1,48 @@
+# Simple docker compose for development, not production.
+# Run:
+#    docker build -t ptoj-sandbox -f Dockerfile.sandbox .
+#    docker build -t ptoj-judger -f Dockerfile.judger .   
+# Then use `docker compose up -d` to start.
+
+services:
+  ptoj-redis:
+    image: redis:latest
+    networks:
+      - internal
+    ports:
+      - 6379:6379
+
+  ptoj-mongodb:
+    image: mongodb/mongodb-community-server:latest
+    networks:
+      - internal
+    ports:
+      - 27017:27017
+      
+  ptoj-sandbox:
+    image: ptoj-sandbox
+    command: ["-enable-metrics"]
+    volumes:
+      - ./temp/data:/app/data:ro # `./temp/data` should change or link to `/backend/data`
+    privileged: true
+    restart: always
+    networks:
+      - internal
+    ports:
+      - 5050:5050
+      - 5052:5052
+
+  ptoj-judger:
+    image: ptoj-judger
+    environment:
+      - PTOJ_REDIS_URL=redis://ptoj-redis:6379
+      - PTOJ_SANDBOX_ENDPOINT=http://ptoj-sandbox:5050
+      - PTOJ_INIT_CONCURRENT=2
+      - PTOJ_LOG_FILE=judger.log
+      - PTOJ_DEBUG=1 # 0/1
+    networks:
+      - internal
+
+networks:
+  internal:
+    driver: bridge
