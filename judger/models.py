@@ -50,6 +50,7 @@ class Language(int, Enum):
     Java = 3
     Python = 4
     Cpp17 = 5
+    PHP8_2 = 6
 
     def __repr__(self):
         return f"{self.__class__.__name__}.{self.name}"

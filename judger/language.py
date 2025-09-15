@@ -120,3 +120,19 @@ LanguageRegistry.register(
         ]
     )
 )
+
+LanguageRegistry.register(
+    Language.PHP8_2,
+    LanguageConfig(
+        source_filename="Main.php",
+        compiled_filename="Main.php",
+        need_compile=False,
+        compile_cmd=[],
+        run_cmd=[
+            "/usr/bin/env", "ONLINE_JUDGE=1",
+            "/usr/bin/php8.2", "Main.php"
+        ],
+        time_factor=2,
+        memory_factor=2
+    )
+)

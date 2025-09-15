@@ -12,7 +12,7 @@ RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib 
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian bookworm-backports main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
     echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bookworm-security main contrib non-free non-free-firmware" >> /etc/apt/sources.list && \
     apt-get update && \
-    apt-get install -y --fix-missing gcc-12 g++-12 openjdk-17-jdk python3.11 && \
+    apt-get install -y --fix-missing gcc-12 g++-12 openjdk-17-jdk python3.11 php8.2-cli && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=go-judge /opt/go-judge /opt/mount.yaml /opt/

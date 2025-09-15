@@ -114,6 +114,22 @@ for line in sys.stdin:
     assert result.judge == JudgeStatus.Accepted
     for testcase in result.testcases:
         assert testcase.judge == JudgeStatus.Accepted
+        
+
+@pytest.mark.asyncio
+async def test_language_php():
+    # TODO: php 输出时会在最前有空行，暂未解决
+    result = await judge_code(r"""
+<?php
+$input = trim(file_get_contents("php://stdin"));
+list($a, $b) = explode(' ', $input);
+echo $a + $b;
+
+""", Language.PHP8_2)
+    print(result)
+    assert result.judge == JudgeStatus.Accepted
+    for testcase in result.testcases:
+        assert testcase.judge == JudgeStatus.Accepted
 
 
 @pytest.mark.asyncio
