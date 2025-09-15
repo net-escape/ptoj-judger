@@ -53,6 +53,7 @@ class Language(int, Enum):
     PHP8_2 = 6
     JavaScript = 7
     # TypeScript = 8
+    WenyanLang = 9
 
     def __repr__(self):
         return f"{self.__class__.__name__}.{self.name}"

@@ -171,3 +171,34 @@ LanguageRegistry.register(
 #         memory_factor=2
 #     )
 # )
+
+LanguageRegistry.register(
+    Language.WenyanLang,
+    LanguageConfig(
+        source_filename="Main.wy",
+        compiled_filename="Main.js",
+        need_compile=True,
+        compile_cmd=[
+            # "/usr/bin/bash", "-c", " ".join([
+            #     "npx wenyan", "-c", "Main.wy",
+            #     "-o", "Main.js"
+            # ])
+            
+            "/usr/bin/bash", "-c", " ".join([
+                "/usr/bin/node", "/usr/local/lib/node_modules/@wenyan/cli/index.min.js", 
+                "-c", "Main.wy",
+                "-o", "Main.js"
+            ])
+        ],
+        run_cmd=[
+            "/usr/bin/env", "ONLINE_JUDGE=1",
+            "/usr/bin/node", "Main.js"
+            
+            # "npx wenyan", "Main.wy"
+            # "/usr/bin/node", "/usr/local/lib/node_modules/@wenyan/cli/index.min.js", 
+            # "-c", "Main.wy"
+        ],
+        time_factor=2,
+        memory_factor=2
+    )
+)

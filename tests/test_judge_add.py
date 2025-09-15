@@ -165,6 +165,24 @@ console.log(result)
 #         assert testcase.judge == JudgeStatus.Accepted
 
 
+@pytest.mark.asyncio
+async def test_language_wenyan_lang():
+    result = await judge_code(r"""
+施「require('fs').readFileSync」於「「/dev/stdin」」。名之曰「數據」。
+施「(buf => buf.toString().trim())」於「數據」。昔之「數據」者。今其是矣。
+施「(s => s.split(' '))」於「數據」。昔之「數據」者。今其是矣。
+注曰。「「文言尚菜，無對象之操作，故需 JavaScript 之语法」」。
+
+夫「數據」之一。取一以施「parseInt」。名之曰「甲」。
+夫「數據」之二。取一以施「parseInt」。名之曰「乙」。
+
+加「甲」以「乙」。書之。
+
+""", Language.WenyanLang)
+    print(result)
+    assert result.judge == JudgeStatus.Accepted
+    for testcase in result.testcases:
+        assert testcase.judge == JudgeStatus.Accepted
 
 @pytest.mark.asyncio
 async def test_time_limit_exceeded():

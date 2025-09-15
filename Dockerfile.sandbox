@@ -14,6 +14,7 @@ RUN echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian bookworm main contrib 
     apt-get update && \
     apt-get install -y --fix-missing gcc-12 g++-12 openjdk-17-jdk python3.11 php8.2-cli && \
     apt-get install -y --fix-missing nodejs npm && npm install -g typescript @types/node && \
+    npm install -g @wenyan/cli && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 COPY --from=go-judge /opt/go-judge /opt/mount.yaml /opt/
