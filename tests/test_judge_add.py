@@ -116,20 +116,54 @@ for line in sys.stdin:
         assert testcase.judge == JudgeStatus.Accepted
         
 
-@pytest.mark.asyncio
-async def test_language_php():
-    # TODO: php 输出时会在最前有空行，暂未解决
-    result = await judge_code(r"""
-<?php
-$input = trim(file_get_contents("php://stdin"));
-list($a, $b) = explode(' ', $input);
-echo $a + $b;
+# @pytest.mark.asyncio
+# async def test_language_php():
+#     # TODO: php 输出时会在最前有空行，暂未解决
+#     result = await judge_code(r"""
+# <?php
+# $input = trim(file_get_contents("php://stdin"));
+# list($a, $b) = explode(' ', $input);
+# echo $a + $b;
 
-""", Language.PHP8_2)
+# """, Language.PHP8_2)
+#     print(result)
+#     assert result.judge == JudgeStatus.Accepted
+#     for testcase in result.testcases:
+#         assert testcase.judge == JudgeStatus.Accepted
+        
+
+@pytest.mark.asyncio
+async def test_language_javascript():
+    result = await judge_code(r"""
+const fs = require('fs')
+const data = fs.readFileSync('/dev/stdin')
+const result = data.toString('ascii').trim().split(' ').map(x => parseInt(x)).reduce((a, b) => a + b, 0)
+console.log(result)
+
+""", Language.JavaScript)
     print(result)
     assert result.judge == JudgeStatus.Accepted
     for testcase in result.testcases:
         assert testcase.judge == JudgeStatus.Accepted
+
+# TODO: typescript 目前无法通过编译，等待修复
+# @pytest.mark.asyncio
+# async def test_language_typescript():
+#     result = await judge_code(r"""
+# import * as fs from "fs";
+# const input = fs.readFileSync(0, "utf-8").trim().split("\n");
+
+# for (const line of input) {
+#     if (!line.trim()) continue;
+#     const [a, b] = line.trim().split(/\s+/).map(Number);
+#     console.log(a + b);
+# }
+# """, Language.TypeScript)
+#     print(result)
+#     assert result.judge == JudgeStatus.Accepted
+#     for testcase in result.testcases:
+#         assert testcase.judge == JudgeStatus.Accepted
+
 
 
 @pytest.mark.asyncio

@@ -136,3 +136,38 @@ LanguageRegistry.register(
         memory_factor=2
     )
 )
+
+# JavaScript (Node.js)
+LanguageRegistry.register(
+    Language.JavaScript,
+    LanguageConfig(
+        source_filename="Main.js",
+        compiled_filename="Main.js",
+        need_compile=False,
+        compile_cmd=[],
+        run_cmd=[
+            "/usr/bin/env", "ONLINE_JUDGE=1",
+            "/usr/bin/node", "Main.js"
+        ],
+        time_factor=2,
+        memory_factor=2
+    )
+)
+
+# LanguageRegistry.register(
+#     Language.TypeScript,
+#     LanguageConfig(
+#         source_filename="Main.ts",
+#         compiled_filename="Main.js",
+#         need_compile=True,
+#         compile_cmd=[
+#             "tsc", "Main.ts", "--outFile", "Main.js"
+#         ],
+#         run_cmd=[
+#             "/usr/bin/env", "ONLINE_JUDGE=1",
+#             "/usr/bin/node", "Main.js"
+#         ],
+#         time_factor=2,
+#         memory_factor=2
+#     )
+# )
